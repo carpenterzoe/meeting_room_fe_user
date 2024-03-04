@@ -6,11 +6,10 @@ import { LoginUserReq } from '@/types/user';
 const onFinish = async (values: LoginUserReq) => {
   try {
     const { data } = await login(values.username, values.password);
-    // console.log('data: ', data.refreshToken); // todo: 类型报错了，应该是拦截器里面改了结构，但是这里读的还是原始定义的返回
     message.success('登录成功');
-    // localStorage.setItem('access_token', data);
-    // localStorage.setItem('refresh_token', data.refreshToken);
-    // localStorage.setItem('user_info', JSON.stringify(data.userInfo));
+    localStorage.setItem('access_token', data.accessToken);
+    localStorage.setItem('refresh_token', data.refreshToken);
+    localStorage.setItem('user_info', JSON.stringify(data.userInfo));
   } catch (error) {}
 };
 

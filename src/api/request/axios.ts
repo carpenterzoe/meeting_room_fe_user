@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { message } from 'antd';
-import { MyAxiosRes } from '@/types/request';
+import { CommonRes } from '@/types/request';
 
 class Request {
   instance: AxiosInstance;
@@ -24,11 +24,12 @@ class Request {
     );
   }
 
-  public get<T = any>(url: string, params: any): Promise<MyAxiosRes<T>> {
+  public get<T = any>(url: string, params: any): Promise<CommonRes<T>> {
     return this.instance.get(url, { params });
   }
 
-  public post<T = any, D = any>(url: string, data?: D): Promise<MyAxiosRes<T>> {
+  // 把返回结构改成了响应器解构后的结构
+  public post<D = any, T = any>(url: string, data?: D): Promise<CommonRes<T>> {
     return this.instance.post(url, data);
   }
 }
