@@ -4,7 +4,7 @@ import { registerCaptcha } from '@/api';
 import { useForm } from 'antd/es/form/Form';
 import { RegisterUser } from '@/types/user';
 import { useCallback } from 'react';
-import { register } from './api/register';
+import { register } from '../../api/register';
 import { Link, useNavigate } from 'react-router-dom';
 
 const layout1 = {
@@ -34,7 +34,10 @@ export function Register() {
     } catch (error) {}
   };
 
-  // 用 useCallback 包裹函数，减少不必要的重复渲染
+  /**
+   * 组件里的函数，如果作为参数的话，需要添加 useCallback
+   * 这样避免每次都创建新的函数导致不必要的渲染。
+   */
   const sendCaptcha = useCallback(async function () {
     const address = form.getFieldValue('email');
     if (!address) {
