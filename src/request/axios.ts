@@ -15,11 +15,11 @@ class Request {
     this.instance.interceptors.request.use();
     this.instance.interceptors.response.use(
       (response) => {
-        // console.log('response data: ', response.data);
         return response.data;
       },
       (error) => {
-        message.error(error.response?.message || '系统繁忙，请稍后再试');
+        message.error(error.response?.data.message || '系统繁忙，请稍后再试');
+        return Promise.reject(error);
       },
     );
   }

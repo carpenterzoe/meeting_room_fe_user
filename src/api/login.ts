@@ -1,4 +1,4 @@
-import service from './request/axios';
+import service from '@/request/axios';
 import { LoginUserRes, LoginUserReq } from '@/types/user';
 
 export function login(username: string, password: string) {
