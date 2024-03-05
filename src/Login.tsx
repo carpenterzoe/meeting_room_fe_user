@@ -2,16 +2,7 @@ import { Button, Form, Input, message } from 'antd';
 import { login } from '@/api';
 import './login.css';
 import { LoginUserReq } from '@/types/user';
-
-const onFinish = async (values: LoginUserReq) => {
-  try {
-    const { data } = await login(values.username, values.password);
-    message.success('登录成功');
-    localStorage.setItem('access_token', data.accessToken);
-    localStorage.setItem('refresh_token', data.refreshToken);
-    localStorage.setItem('user_info', JSON.stringify(data.userInfo));
-  } catch (error) {}
-};
+import { Link, useNavigate } from 'react-router-dom';
 
 const layout1 = {
   labelCol: { span: 4 },
@@ -24,6 +15,21 @@ const layout2 = {
 };
 
 export function Login() {
+  const navigate = useNavigate();
+
+  const onFinish = async (values: LoginUserReq) => {
+    try {
+      const { data } = await login(values.username, values.password);
+      message.success('登录成功');
+      localStorage.setItem('access_token', data.accessToken);
+      localStorage.setItem('refresh_token', data.refreshToken);
+      localStorage.setItem('user_info', JSON.stringify(data.userInfo));
+      setTimeout(() => {
+        navigate('/');
+      }, 1000);
+    } catch (error) {}
+  };
+
   return (
     <div id="login-container">
       <h1>会议室预订系统</h1>
@@ -46,8 +52,8 @@ export function Login() {
 
         <Form.Item {...layout2}>
           <div className="links">
-            <a href="">创建账号</a>
-            <a href="">忘记密码</a>
+            <Link to="/register">创建账号</Link>
+            <Link to="/update_password">忘记密码</Link>
           </div>
         </Form.Item>
 
