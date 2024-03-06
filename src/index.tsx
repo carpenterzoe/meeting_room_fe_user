@@ -3,7 +3,7 @@ import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Register } from './page/register/Register';
 import { Login } from './page/login/Login';
-import { UpdatePassword } from './UpdatePassword';
+import { UpdatePassword } from './page/update_password/UpdatePassword';
 import { ErrorPage } from './page/error/ErrorPage';
 
 const routes = [

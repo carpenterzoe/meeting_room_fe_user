@@ -1,19 +1,20 @@
-export interface LoginUserReq {
-  username: string;
-  password: string;
-}
-
 export type LoginUserRes = {
   accessToken: string;
   refreshToken: string;
   userInfo: Record<string, unknown>;
 };
 
-export interface RegisterUser {
+export interface LoginUserReq {
   username: string;
-  nickName: string;
   password: string;
+}
+
+export interface UpdatePasswordType extends LoginUserReq {
   confirmPassword: string;
   email: string;
   captcha: string;
+}
+
+export interface RegisterUser extends UpdatePasswordType {
+  nickName: string;
 }
