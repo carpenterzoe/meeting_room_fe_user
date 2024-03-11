@@ -7,6 +7,10 @@ export function updateUserCaptcha(address: string) {
   });
 }
 
+export function getUserInfo() {
+  return service.get('/user/info');
+}
+
 export function updateUserApi(userInfo: UpdateUserInfo) {
   return service.post('/user/update', userInfo);
 }

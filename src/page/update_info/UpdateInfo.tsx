@@ -1,10 +1,14 @@
 import { Button, Form, Input, message } from 'antd';
 import { useForm } from 'antd/es/form/Form';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import './update_info.css';
 import { useNavigate } from 'react-router-dom';
 import { UpdateUserInfo } from '@/types/user';
-import { updateUserApi, updateUserCaptcha } from '@/api/update_info';
+import {
+  getUserInfo,
+  updateUserApi,
+  updateUserCaptcha,
+} from '@/api/update_user';
 
 const layout1 = {
   labelCol: { span: 6 },
@@ -29,6 +33,28 @@ export function UpdateInfo() {
       message.success(data);
     } catch (error) {}
   }, []);
+
+  /**
+   * useEffect(effect, dependencies)
+   * 在函数组件中调用 useEffect，并传入一个回调函数作为 effect。
+   * 这个回调函数将会在组件渲染完成后执行。
+
+   * 可选地，传入一个依赖项数组作为第二个参数。依赖项数组表示什么情况下需要重新运行 effect。
+   * 如果不传入依赖项数组，则 effect 每次组件重新渲染时都会执行；
+   * 如果传入一个空数组 []，则 effect 只会在组件挂载和卸载时执行；
+   * 如果传入依赖项数组，effect 将会在依赖项发生变化时执行。
+   */
+  useEffect(() => {
+    async function query() {
+      try {
+        const res = await getUserInfo();
+        console.log('res: ', res);
+      } catch (error) {
+        console.log('error: ', error);
+      }
+    }
+    query();
+  }, []); // 传入一个空数组 []，则 effect 只会在组件挂载和卸载时执行
 
   return (
     <div id="updateInfo-container">

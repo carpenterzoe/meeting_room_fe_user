@@ -24,7 +24,7 @@ class Request {
     );
   }
 
-  public get<T = any>(url: string, params: any): Promise<CommonRes<T>> {
+  public get<T = any>(url: string, params = {}): Promise<CommonRes<T>> {
     return this.instance.get(url, { params });
   }
 
