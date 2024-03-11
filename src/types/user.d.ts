@@ -18,3 +18,10 @@ export interface UpdatePasswordType extends LoginUserReq {
 export interface RegisterUser extends UpdatePasswordType {
   nickName: string;
 }
+
+export interface UpdateUserInfo {
+  headPic: string;
+  nickName: string;
+  email: string;
+  captcha: string;
+}

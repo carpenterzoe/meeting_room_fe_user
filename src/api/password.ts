@@ -3,9 +3,7 @@ import { UpdatePasswordType } from '@/types/user';
 
 export function updatePasswordCaptcha(email: string) {
   return service.get<string>('/user/update_password/captcha', {
-    params: {
-      address: email,
-    },
+    address: email,
   });
 }
 
