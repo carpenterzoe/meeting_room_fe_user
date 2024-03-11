@@ -1,5 +1,5 @@
 import service from '@/request/axios';
-import { UpdateUserInfo } from '@/types/user';
+import { CommonUserInfo, UpdateUserInfo } from '@/types/user';
 
 export function updateUserCaptcha(address: string) {
   return service.get<string>('/user/update/captcha', {
@@ -8,7 +8,7 @@ export function updateUserCaptcha(address: string) {
 }
 
 export function getUserInfo() {
-  return service.get('/user/info');
+  return service.get<CommonUserInfo>('/user/info');
 }
 
 export function updateUserApi(userInfo: UpdateUserInfo) {

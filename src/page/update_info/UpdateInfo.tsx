@@ -47,11 +47,25 @@ export function UpdateInfo() {
   useEffect(() => {
     async function query() {
       try {
-        const res = await getUserInfo();
-        console.log('res: ', res);
-      } catch (error) {
-        console.log('error: ', error);
-      }
+        const { data } = await getUserInfo();
+        // form.setFields([
+        //   {
+        //     name: 'headPic',
+        //     value: data.headPic,
+        //   },
+        //   {
+        //     name: 'nickName',
+        //     value: data.nickName,
+        //   },
+        //   {
+        //     name: 'email',
+        //     value: data.email,
+        //   },
+        // ]);
+        form.setFieldValue('headPic', data.headPic);
+        form.setFieldValue('nickName', data.nickName);
+        form.setFieldValue('email', data.email);
+      } catch (error) {}
     }
     query();
   }, []); // 传入一个空数组 []，则 effect 只会在组件挂载和卸载时执行

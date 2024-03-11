@@ -25,3 +25,9 @@ export interface UpdateUserInfo {
   email: string;
   captcha: string;
 }
+
+export interface CommonUserInfo {
+  headPic: string;
+  nickName: string;
+  email: string;
+}
