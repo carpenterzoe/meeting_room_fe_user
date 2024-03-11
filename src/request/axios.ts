@@ -12,7 +12,13 @@ class Request {
       timeout: 3000,
     });
 
-    this.instance.interceptors.request.use();
+    this.instance.interceptors.request.use((config) => {
+      const accessToken = localStorage.getItem('access_token');
+      if (accessToken) {
+        config.headers.authorization = 'Bearer ' + accessToken;
+      }
+      return config;
+    });
     this.instance.interceptors.response.use(
       (response) => {
         return response.data;
