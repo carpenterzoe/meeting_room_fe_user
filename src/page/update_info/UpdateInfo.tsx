@@ -9,6 +9,7 @@ import {
   updateUserApi,
   updateUserCaptcha,
 } from '@/api/update_user';
+import { HeadPicUpload } from './HeadPicUpload';
 
 const layout1 = {
   labelCol: { span: 6 },
@@ -21,8 +22,8 @@ export function UpdateInfo() {
 
   const onFinish = useCallback(async (values: UpdateUserInfo) => {
     try {
-      await updateUserApi(values);
-      message.success('修改成功');
+      const { msg } = await updateUserApi(values);
+      message.success(msg);
     } catch (error) {}
   }, []);
 
@@ -82,9 +83,9 @@ export function UpdateInfo() {
         <Form.Item
           label="头像"
           name="headPic"
-          rules={[{ required: true, message: '请输入头像!' }]}
+          rules={[{ required: true, message: '请上传头像!' }]}
         >
-          <Input />
+          <HeadPicUpload />
         </Form.Item>
 
         <Form.Item
@@ -103,7 +104,7 @@ export function UpdateInfo() {
             { type: 'email', message: '请输入合法邮箱地址!' },
           ]}
         >
-          <Input />
+          <Input disabled />
         </Form.Item>
 
         <div className="captcha-wrapper">
