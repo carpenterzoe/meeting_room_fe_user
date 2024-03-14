@@ -10,3 +10,7 @@
   display: flex;
   justify-content: flex-end;
 }
+/* 上传头像，图片太长溢出，修改antd样式 */
+.avatar-uploader .ant-upload {
+  overflow: hidden;
+}

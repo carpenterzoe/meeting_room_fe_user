@@ -9,7 +9,8 @@ import {
   updateUserApi,
   updateUserCaptcha,
 } from '@/api/update_user';
-import { HeadPicUpload } from './HeadPicUpload';
+
+import UploadAvatar from './UploadAvatar';
 
 const layout1 = {
   labelCol: { span: 6 },
@@ -85,7 +86,8 @@ export function UpdateInfo() {
           name="headPic"
           rules={[{ required: true, message: '请上传头像!' }]}
         >
-          <HeadPicUpload />
+          <UploadAvatar />
+          {/* <HeadPicUpload /> */}
         </Form.Item>
 
         <Form.Item

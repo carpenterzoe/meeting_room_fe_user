@@ -15,11 +15,12 @@ const props: DraggerProps = {
   onChange(info) {
     const { status } = info.file;
     if (status === 'done') {
-      console.log(info.file.response);
+      // Form.Item 的 cb, 用于更换图片后更新回显
       onChangeCb(info.file.response.data as string);
       message.success(`${info.file.name} 文件上传成功`);
     } else if (status === 'error') {
-      message.error(`${info.file.name} 文件上传失败`);
+      const { message: msg } = info.file.response;
+      message.error(msg);
     }
   },
 };
@@ -34,7 +35,7 @@ const dragger = (
 );
 
 export function HeadPicUpload(props: HeadPicUploadProps) {
-  onChangeCb = props.onChange!;
+  onChangeCb = props.onChange!; // 为啥要赋值呢，传进来直接调用岂不是更好？
   return props?.value ? (
     <div>
       <img
