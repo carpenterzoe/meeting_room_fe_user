@@ -3,6 +3,8 @@ import { login } from '@/api';
 import './login.css';
 import { LoginUserReq } from '@/types/user';
 import { Link, useNavigate } from 'react-router-dom';
+import LoginTabs from './LoginTabs';
+import { useState } from 'react';
 
 const layout1 = {
   labelCol: { span: 4 },
@@ -16,10 +18,15 @@ const layout2 = {
 
 export function Login() {
   const navigate = useNavigate();
+  const [loginType, setLoginType] = useState<string>('1');
+
+  const changeLoginType = (val: string) => {
+    setLoginType(val);
+  };
 
   const onFinish = async (values: LoginUserReq) => {
     try {
-      const { data } = await login(values.username, values.password);
+      const { data } = await login(values.username, values.password, loginType);
       message.success('登录成功');
       localStorage.setItem('access_token', data.accessToken);
       localStorage.setItem('refresh_token', data.refreshToken);
@@ -33,6 +40,9 @@ export function Login() {
   return (
     <div id="login-container">
       <h1>会议室预订系统</h1>
+      <div style={{ marginBottom: '18px' }}>
+        <LoginTabs loginType={loginType} changeLoginType={changeLoginType} />
+      </div>
       <Form {...layout1} onFinish={onFinish} colon={false} autoComplete="off">
         <Form.Item
           label="用户名"
