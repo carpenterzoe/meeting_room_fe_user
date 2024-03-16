@@ -87,7 +87,6 @@ export function UpdateInfo() {
           rules={[{ required: true, message: '请上传头像!' }]}
         >
           <UploadAvatar />
-          {/* <HeadPicUpload /> */}
         </Form.Item>
 
         <Form.Item
@@ -124,7 +123,7 @@ export function UpdateInfo() {
 
         <Form.Item {...layout1} label=" ">
           <Button className="btn" type="primary" htmlType="submit">
-            修改密码
+            修改资料
           </Button>
         </Form.Item>
       </Form>

@@ -30,7 +30,6 @@ const beforeUpload = (file: FileType) => {
 
 const UploadAvatar: React.FC = (props: HeadPicUploadProps) => {
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string>();
 
   const handleChange: UploadProps['onChange'] = (info) => {
     if (info.file.status === 'uploading') {
@@ -41,7 +40,6 @@ const UploadAvatar: React.FC = (props: HeadPicUploadProps) => {
       getBase64(info.file.originFileObj as FileType, (url) => {
         props.onChange?.(info.file.response.data);
         setLoading(false);
-        setImageUrl(url);
         message.success('上传成功');
       });
     }
@@ -65,8 +63,8 @@ const UploadAvatar: React.FC = (props: HeadPicUploadProps) => {
         beforeUpload={beforeUpload}
         onChange={handleChange}
       >
-        {imageUrl ? (
-          <img src={imageUrl} alt="avatar" style={{ width: '100%' }} />
+        {props.value ? (
+          <img src={props.value} alt="avatar" style={{ width: '100%' }} />
         ) : (
           uploadButton
         )}
