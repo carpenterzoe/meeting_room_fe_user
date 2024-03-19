@@ -1,23 +1,52 @@
 import { Button, Form, Input, Table } from 'antd';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import './UserManage.css';
-import { SearchUser } from '@/types/user_manage';
+import {
+  SearchUser,
+  SearchUserWithPage,
+  UserSearchResult,
+} from '@/types/user_manage';
 import { columns } from './columns';
-
-const data = [
-  {
-    key: '1',
-    username: 'xx',
-    headPic: 'xxx.png',
-    nickName: 'xxx',
-    email: 'xx@xx.com',
-    createTime: new Date(),
-  },
-];
+import { getUserList } from '@/api/user_manage';
 
 export function UserManage() {
+  const [pageNo, setPageNo] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(10);
+  const [tableData, setTableData] = useState<UserSearchResult[]>([]);
+
+  const initParams = {
+    pageNo: 1,
+    pageSize: 10,
+  };
+
+  // 查询条件
   const searchUser = useCallback(async (values: SearchUser) => {
-    console.log(values);
+    const params = {
+      ...initParams,
+      ...values,
+    };
+    getTableData(params);
+  }, []);
+
+  // 刷新table
+  const getTableData = async (params: SearchUserWithPage) => {
+    try {
+      const { data } = await getUserList(params);
+      setTableData(data.users);
+    } catch (error) {}
+  };
+
+  // 分页
+  const changePage = (num: number) => {
+    setPageSize(num);
+  };
+
+  // 初始数据
+  useEffect(() => {
+    const init = () => {
+      getTableData(initParams);
+    };
+    init();
   }, []);
 
   return (
@@ -42,7 +71,7 @@ export function UserManage() {
 
           <Form.Item label=" ">
             <Button type="primary" htmlType="submit">
-              搜索用户
+              查询
             </Button>
           </Form.Item>
         </Form>
@@ -50,9 +79,12 @@ export function UserManage() {
       <div className="userManage-table">
         <Table
           columns={columns}
-          dataSource={data}
+          rowKey="id"
+          dataSource={tableData}
           pagination={{
-            pageSize: 10,
+            current: pageNo,
+            pageSize: pageSize,
+            onChange: changePage,
           }}
         />
       </div>
