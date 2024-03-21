@@ -1,5 +1,6 @@
 import { UserSearchResult } from '@/types/user_manage';
 import { ColumnsType } from 'antd/es/table';
+import { Image } from 'antd';
 
 export const columns: ColumnsType<UserSearchResult> = [
   {
@@ -9,6 +10,8 @@ export const columns: ColumnsType<UserSearchResult> = [
   {
     title: '头像',
     dataIndex: 'headPic',
+    render: (text, record, index) =>
+      text ? <Image width={50} src={text}></Image> : '',
   },
   {
     title: '昵称',

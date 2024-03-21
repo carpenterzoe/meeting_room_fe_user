@@ -37,8 +37,9 @@ export function UserManage() {
   };
 
   // 分页
-  const changePage = (num: number) => {
-    setPageSize(num);
+  const changePage = (val: any) => {
+    console.log('val: ', val);
+    // setPageSize(num);
   };
 
   // 初始数据
