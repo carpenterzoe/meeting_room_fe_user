@@ -8,6 +8,7 @@ import {
 } from '@/types/user_manage';
 import { columns } from './columns';
 import { getUserList } from '@/api/user_manage';
+import { useForm } from 'antd/es/form/Form';
 
 export function UserManage() {
   const [pageNo, setPageNo] = useState<number>(1);
@@ -15,19 +16,15 @@ export function UserManage() {
   const [tableData, setTableData] = useState<UserSearchResult[]>([]);
   const [total, setTotal] = useState<number>(0);
 
-  const initParams = {
-    pageNo: 1,
-    pageSize: 10,
-  };
-
   // 查询条件
-  const searchUser = useCallback(async (values: SearchUser) => {
+  const searchUser = (values: SearchUser) => {
     const params = {
-      ...initParams,
+      pageNo,
+      pageSize: 10,
       ...values,
     };
     getTableData(params);
-  }, []);
+  };
 
   // 刷新table
   const getTableData = async (params: SearchUserWithPage) => {
@@ -43,17 +40,18 @@ export function UserManage() {
   //   setPageSize(num);
   // };
 
-  const changePage = useCallback(function (pageNo: number, pageSize: number) {
-    setPageNo(pageNo);
-    setPageSize(pageSize);
-  }, []);
-
-  // 初始数据
+  const [form] = useForm();
   useEffect(() => {
-    const init = () => {
-      getTableData(initParams);
-    };
-    init();
+    searchUser({
+      username: form.getFieldValue('username'),
+      email: form.getFieldValue('email'),
+      nickName: form.getFieldValue('nickName'),
+    });
+  }, [pageNo]);
+
+  // 不用 useCallback, antd里面会报错  为什么 ？
+  const changePage = useCallback((pageNo: number) => {
+    setPageNo(pageNo);
   }, []);
 
   return (
