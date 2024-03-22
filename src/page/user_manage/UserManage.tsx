@@ -13,6 +13,7 @@ export function UserManage() {
   const [pageNo, setPageNo] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
   const [tableData, setTableData] = useState<UserSearchResult[]>([]);
+  const [total, setTotal] = useState<number>(0);
 
   const initParams = {
     pageNo: 1,
@@ -33,14 +34,19 @@ export function UserManage() {
     try {
       const { data } = await getUserList(params);
       setTableData(data.users);
+      setTotal(data.totalCount);
     } catch (error) {}
   };
 
   // 分页
-  const changePage = (val: any) => {
-    console.log('val: ', val);
-    // setPageSize(num);
-  };
+  // const changePage = (num) => {
+  //   setPageSize(num);
+  // };
+
+  const changePage = useCallback(function (pageNo: number, pageSize: number) {
+    setPageNo(pageNo);
+    setPageSize(pageSize);
+  }, []);
 
   // 初始数据
   useEffect(() => {
@@ -85,6 +91,7 @@ export function UserManage() {
           pagination={{
             current: pageNo,
             pageSize: pageSize,
+            total: total,
             onChange: changePage,
           }}
         />
