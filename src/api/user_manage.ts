@@ -6,3 +6,9 @@ export function getUserList(params: SearchUserWithPage) {
     ...params,
   });
 }
+
+export async function freeze(id: number) {
+  return service.get('/user/freeze', {
+    id,
+  });
+}

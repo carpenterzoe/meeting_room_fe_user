@@ -8,6 +8,7 @@ export interface SearchUser {
 export type SearchUserWithPage = PageType & SearchUser;
 
 interface UserSearchResult {
+  id: number;
   username: string;
   nickName: string;
   email: string;
