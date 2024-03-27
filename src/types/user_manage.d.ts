@@ -14,6 +14,7 @@ interface UserSearchResult {
   email: string;
   headPic: string;
   createTime: Date;
+  isFrozen: boolean;
 }
 
 export interface UserList {
