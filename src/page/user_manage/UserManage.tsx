@@ -1,5 +1,5 @@
 import { Button, Form, Input, Table } from 'antd';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import './UserManage.css';
 import {
   SearchUser,
@@ -54,6 +54,8 @@ export function UserManage() {
     setPageNo(pageNo);
   }, []);
 
+  const curCols = useMemo(() => columns, []);
+
   return (
     <div id="userManage-container">
       <div className="userManage-form">
@@ -83,7 +85,7 @@ export function UserManage() {
       </div>
       <div className="userManage-table">
         <Table
-          columns={columns}
+          columns={curCols}
           rowKey="id"
           dataSource={tableData}
           pagination={{

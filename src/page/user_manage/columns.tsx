@@ -6,24 +6,26 @@ import { useCallback, useMemo } from 'react';
 
 // TODO: 这部分怎么放到业务代码里去 ？ 跟columns区分开
 // ps. 操作完成后还没刷新 list
-// async function freezeUser(id: number) {
-//   try {
-//     await freeze(id);
-//     message.success('冻结成功');
-//   } catch (error) {}
-// }
-
-// useCallback 包裹，避免多次创建 ?
-const freezeUser = useCallback(async (id: number) => {
+async function freezeUser(id: number) {
   try {
     await freeze(id);
     message.success('冻结成功');
   } catch (error) {}
-}, []);
+}
+
+// useCallback 包裹，避免多次创建 ? - 不在react render 中 报错 ?
+// const freezeUser = useCallback(async (id: number) => {
+//   try {
+//     await freeze(id);
+//     message.success('冻结成功');
+//   } catch (error) {}
+// }, []);
 
 // 把 columns 移到组件内，用 useMemo 包裹，这样只会创建一次
-export const columns: ColumnsType<UserSearchResult> = useMemo(
-  () => [
+export const columns: ColumnsType<UserSearchResult> =
+  //  useMemo(
+  //   () =>
+  [
     {
       title: 'id',
       dataIndex: 'id',
@@ -72,6 +74,6 @@ export const columns: ColumnsType<UserSearchResult> = useMemo(
           </a>
         ),
     },
-  ],
-  [],
-);
+  ];
+// [],
+// );
